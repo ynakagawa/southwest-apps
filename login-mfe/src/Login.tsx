@@ -43,7 +43,12 @@ export default function Login({ onSubmit }: LoginProps) {
     if (!open) return;
 
     function handlePointerDown(event: PointerEvent) {
-      if (!containerRef.current?.contains(event.target as Node)) {
+      // Inside the shadow root, event.target gets retargeted to the
+      // <sw-login> host once the event crosses the shadow boundary, so
+      // containerRef.contains(event.target) is always false for clicks
+      // inside our own form. composedPath() preserves the real path.
+      const path = event.composedPath();
+      if (containerRef.current && !path.includes(containerRef.current)) {
         setOpen(false);
       }
     }
