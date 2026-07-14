@@ -24,6 +24,24 @@ that loads the built script the way an EDS block would, a `public/index.html`
 landing page for standalone deploys, and a `vercel.json` pinning the build
 config for Vercel.
 
+## Combined example (both MFEs together)
+
+`examples/combined-demo.html` loads both built bundles and arranges them
+like the real southwest.com page — `<sw-login>` in the header (flush
+right), `<sw-flight-search>` below — so you can see both MFEs working
+side by side on one page. Build both apps first, then serve the repo root:
+
+```bash
+(cd flight-search-mfe && npm install && npm run build)
+(cd login-mfe && npm install && npm run build)
+python3 -m http.server 8000   # from the repo root
+# open http://localhost:8000/examples/combined-demo.html
+```
+
+This page references the two apps' `dist/` output by relative path, so
+it's a local sanity check, not something to deploy as-is — each MFE still
+gets its own build/deploy (see the Vercel sections below).
+
 ---
 
 # Flight Search MFE
