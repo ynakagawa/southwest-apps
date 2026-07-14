@@ -44,9 +44,33 @@ python3 -m http.server 8000   # from the repo root
 # open http://localhost:8000/examples/combined-demo.html
 ```
 
-This page references each app's `dist/` output by relative path, so it's a
-local sanity check, not something to deploy as-is — each MFE still gets
-its own build/deploy (see the Vercel sections below).
+`examples/combined-demo.html` itself references each app's `dist/` output
+by relative path (`../login-mfe/dist/login-widget.js`, etc.), which is
+fine for the local `python3 -m http.server` workflow above but doesn't
+deploy as-is — those sibling folders aren't part of `examples/`'s own
+build output.
+
+To deploy the combined demo as its own Vercel project, `examples/` has its
+own `package.json` + `build.mjs`: `npm run build` there builds all three
+MFEs, copies their bundles into `examples/dist/`, and rewrites the HTML's
+script paths to be flat (`./login-widget.js` etc.) so the result is a
+fully self-contained static site:
+
+```bash
+cd examples
+npm install   # no real deps, just enables `npm run build`
+npm run build
+npm run preview   # if you add a "preview" script, or just serve dist/ directly
+```
+
+For Vercel: **Root Directory** `examples`, **Framework Preset** Vite (or
+Other) — `examples/vercel.json` pins `buildCommand`/`outputDirectory` and
+sets `"framework": null`, same as the other three projects. Because
+`build.mjs` runs `npm install && npm run build` inside
+`../flight-search-mfe`, `../login-mfe`, and `../feedback-mfe` relative to
+`examples/`, this only works when the whole repo is checked out (true for
+a normal Vercel Git-connected project) — it won't work if `examples/` is
+ever split into its own repo.
 
 ---
 
