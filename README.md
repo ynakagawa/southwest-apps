@@ -63,6 +63,21 @@ npm run preview   # serves dist/ — open /examples/embed-demo.html
   search — double check the query params against southwest.com if exact
   parity matters.
 
+## Deploying the demo (e.g. Vercel)
+
+The site is a plain static build, so any static host works. For Vercel,
+since the app lives in the `flight-search-mfe/` subfolder of this repo:
+
+- Root Directory: `flight-search-mfe`
+- Framework Preset: Vite
+- Build Command: `npm run build`
+- Output Directory: `dist`
+
+`public/index.html` becomes the deployed root (`/`) with a description and a
+link to `/examples/embed-demo.html`; `public/examples/embed-demo.html`
+becomes the live demo; `flight-search-widget.js` is the bundle itself,
+reachable at `/flight-search-widget.js` once deployed.
+
 ## Using it in an EDS document
 
 Authors add a block named "Flight Search" (any single cell of content, e.g.
