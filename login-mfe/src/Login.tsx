@@ -19,7 +19,7 @@ interface Session {
 
 const SESSION_STORAGE_KEY = 'sw-login:session';
 
-const ACCOUNT_URL = 'https://www.southwest.com/account/myaccount.html';
+const ACCOUNT_URL = 'https://www.southwest.com/loyalty/myaccount/';
 const ENROLL_URL = 'https://www.southwest.com/loyalty/enroll/';
 const FIRST_TIME_URL = 'https://www.southwest.com/rapidrewards/first-time-login';
 const FORGOT_LOGIN_URL = 'https://www.southwest.com/rapidrewards/forgot-login';
