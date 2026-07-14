@@ -30,11 +30,13 @@ config for Vercel.
 
 ## Combined example (all three MFEs together)
 
-`examples/combined-demo.html` loads all three built bundles and arranges
-them like the real southwest.com page — `<sw-login>` in the header (flush
-right), `<sw-flight-search>` below, `<sw-feedback>` fixed to the left edge
-— so you can see all three MFEs working side by side on one page. Build
-all three apps first, then serve the repo root:
+`examples/combined-demo.html` is a "Southwest Apps" landing page (Southwest
+heart logo + title bar, styled the same way as
+[cat-apps](https://github.com/ynakagawa/cat-apps)'s widget suite page)
+with a tab per MFE — Flight Search, Login, Feedback. Each tab shows that
+widget live plus a "Show embed code" button that reveals the exact
+`<script>` + custom element snippet to drop into a page. Build all three
+apps first, then serve the repo root:
 
 ```bash
 (cd flight-search-mfe && npm install && npm run build)

@@ -3,105 +3,273 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Southwest MFEs — Combined Demo</title>
+    <title>Southwest Apps — Embeddable Widget Suite</title>
     <style>
+      * {
+        box-sizing: border-box;
+      }
+
       body {
         margin: 0;
-        background: #eef3f8;
+        background: #f5f5f5;
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+        color: #1a1a1a;
       }
 
-      .note {
-        max-width: 900px;
-        margin: 0 auto;
-        padding: 16px 20px 0;
-        font-size: 13px;
-        color: #555;
-      }
-      .note code {
-        background: #e0e0e0;
-        padding: 1px 5px;
-        border-radius: 3px;
+      .app-header {
+        background: #304cb2;
+        padding: 20px 40px;
       }
 
-      header {
-        background: #fff;
-        border-bottom: 1px solid #e2e2e2;
-      }
-
-      .header-inner {
+      .app-header-inner {
         max-width: 1100px;
         margin: 0 auto;
         display: flex;
         align-items: center;
-        justify-content: space-between;
-        gap: 24px;
-        padding: 16px 20px;
+        gap: 16px;
       }
 
-      .wordmark {
-        font-size: 20px;
-        font-weight: 800;
-        color: #304cb2;
-        white-space: nowrap;
-      }
-
-      nav {
-        display: flex;
-        gap: 28px;
-      }
-
-      nav a {
-        color: #304cb2;
-        text-decoration: none;
-        font-size: 16px;
-      }
-      nav a.active {
+      .app-header-inner h1 {
+        color: #fff;
+        margin: 0;
+        font-size: 18px;
         font-weight: 700;
-        border-bottom: 3px solid #304cb2;
-        padding-bottom: 4px;
       }
 
-      main {
-        max-width: 900px;
+      .app-header-inner p {
+        color: #c7d2f0;
+        margin: 0;
+        font-size: 13px;
+      }
+
+      .page {
+        max-width: 1100px;
         margin: 0 auto;
-        padding: 40px 20px 80px;
+        padding: 32px 40px 80px;
+      }
+
+      .info-banner {
+        background: #fffbeb;
+        border: 1px solid #ffbf27;
+        border-radius: 8px;
+        padding: 14px 18px;
+        margin-bottom: 28px;
+        font-size: 13px;
+        color: #374151;
         display: flex;
-        justify-content: center;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .info-banner code {
+        background: #fef3c7;
+        padding: 1px 6px;
+        border-radius: 3px;
+      }
+
+      .tabs {
+        display: flex;
+        gap: 4px;
+        margin-bottom: 24px;
+        border-bottom: 2px solid #e5e5e5;
+      }
+
+      .tab {
+        padding: 10px 20px;
+        border: none;
+        background: none;
+        font-weight: 600;
+        font-size: 14px;
+        cursor: pointer;
+        color: #6b6b6b;
+        border-bottom: 2px solid transparent;
+        margin-bottom: -2px;
+      }
+
+      .tab.active {
+        color: #1a1a1a;
+        border-bottom-color: #ffbf27;
+      }
+
+      .panel h2 {
+        margin: 0 0 4px;
+        font-size: 18px;
+        font-weight: 700;
+        color: #1a1a1a;
+      }
+
+      .panel .desc {
+        margin: 0 0 12px;
+        font-size: 14px;
+        color: #6b6b6b;
+      }
+
+      .embed-toggle {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 12px;
+        background: #f5f5f5;
+        color: #374151;
+        border: 1px solid #e5e5e5;
+        border-radius: 4px;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      .embed-toggle.active {
+        background: #1a1a1a;
+        color: #ffbf27;
+      }
+
+      .embed-code {
+        margin-top: 10px;
+        background: #1a1a1a;
+        color: #ffbf27;
+        padding: 16px;
+        border-radius: 6px;
+        font-size: 13px;
+        overflow-x: auto;
+        line-height: 1.6;
+      }
+
+      .widget-preview {
+        margin-top: 20px;
+      }
+
+      .widget-preview--right {
+        display: flex;
+        justify-content: flex-end;
       }
     </style>
   </head>
   <body>
-    <p class="note">
-      Combined demo — loads <code>flight-search-widget.js</code>,
-      <code>login-widget.js</code>, and <code>feedback-widget.js</code> from
-      their respective build outputs and arranges them the way they'd sit
-      on the real southwest.com page: the login widget in the header, the
-      flight search form below, and the feedback tab fixed to the left edge.
-    </p>
-
-    <header>
-      <div class="header-inner">
-        <div class="wordmark">Southwest&reg;</div>
-        <nav>
-          <a class="active" href="#">Flights</a>
-          <a href="#">Vacations</a>
-          <a href="#">Hotels</a>
-          <a href="#">Cars</a>
-          <a href="#">Cruises</a>
-        </nav>
-        <sw-login></sw-login>
+    <header class="app-header">
+      <div class="app-header-inner">
+        <svg viewBox="0 0 32 28" width="32" height="28" aria-hidden="true">
+          <path
+            d="M16 28C7 21 0 15.5 0 9a9 9 0 0 1 16-5.6A9 9 0 0 1 32 9c0 6.5-7 12-16 19Z"
+            fill="#e31837"
+          />
+          <path d="M16 28C21.5 23.7 26 20 28.7 16H3.3C6 20 10.5 23.7 16 28Z" fill="#ffbf27" />
+        </svg>
+        <div>
+          <h1>Southwest Apps</h1>
+          <p>Embeddable Widget Suite — built as standalone JS bundles for any HTML page</p>
+        </div>
       </div>
     </header>
 
-    <main>
-      <sw-flight-search></sw-flight-search>
-    </main>
+    <div class="page">
+      <div class="info-banner">
+        <span>📦</span>
+        <span>
+          Each tab below builds a self-contained custom element bundle
+          (<code>flight-search-widget.js</code>, <code>login-widget.js</code>,
+          <code>feedback-widget.js</code>). Click "Show embed code" to see
+          exactly what to drop into an EDS block or any HTML page.
+        </span>
+      </div>
 
-    <sw-feedback></sw-feedback>
+      <div class="tabs" role="tablist">
+        <button class="tab active" data-tab="flight-search" role="tab" aria-selected="true">
+          Flight Search
+        </button>
+        <button class="tab" data-tab="login" role="tab" aria-selected="false">Login</button>
+        <button class="tab" data-tab="feedback" role="tab" aria-selected="false">Feedback</button>
+      </div>
+
+      <section class="panel" data-panel="flight-search">
+        <h2>Flight Search</h2>
+        <p class="desc">
+          The southwest.com search module: trip type, depart/arrive, dates,
+          passengers, promo code, fare display, and low-fare-calendar
+          option. Submitting redirects to a southwest.com results URL built
+          from the form fields.
+        </p>
+        <button class="embed-toggle" data-target="flight-search">Show embed code</button>
+        <pre class="embed-code" data-code="flight-search" hidden>&lt;script src="https://YOUR_CDN_OR_HOST/flight-search-widget.js"&gt;&lt;/script&gt;
+&lt;sw-flight-search&gt;&lt;/sw-flight-search&gt;
+
+&lt;!-- Or as an EDS block: blocks/flight-search/flight-search.js
+     loads the script and mounts the element automatically. --&gt;</pre>
+        <div class="widget-preview">
+          <sw-flight-search></sw-flight-search>
+        </div>
+      </section>
+
+      <section class="panel" data-panel="login" hidden>
+        <h2>Login</h2>
+        <p class="desc">
+          A yellow "Log in" trigger button that opens a popover (account
+          number/username, password, remember me, plus forgot-login and
+          enroll links) anchored below the button, matching the
+          southwest.com header.
+        </p>
+        <button class="embed-toggle" data-target="login">Show embed code</button>
+        <pre class="embed-code" data-code="login" hidden>&lt;script src="https://YOUR_CDN_OR_HOST/login-widget.js"&gt;&lt;/script&gt;
+&lt;sw-login&gt;&lt;/sw-login&gt;
+
+&lt;!-- Or as an EDS block: blocks/login/login.js
+     loads the script and mounts the element automatically. --&gt;</pre>
+        <div class="widget-preview widget-preview--right">
+          <sw-login></sw-login>
+        </div>
+      </section>
+
+      <section class="panel" data-panel="feedback" hidden>
+        <h2>Feedback</h2>
+        <p class="desc">
+          A vertical "Feedback" tab fixed to the left edge of the viewport
+          that expands into a panel: goal dropdown, accomplished yes/no,
+          comments textarea, and a Contact Us link — matching the
+          southwest.com feedback widget.
+        </p>
+        <button class="embed-toggle" data-target="feedback">Show embed code</button>
+        <pre class="embed-code" data-code="feedback" hidden>&lt;script src="https://YOUR_CDN_OR_HOST/feedback-widget.js"&gt;&lt;/script&gt;
+&lt;sw-feedback&gt;&lt;/sw-feedback&gt;
+
+&lt;!-- Or as an EDS block: blocks/feedback/feedback.js
+     loads the script and mounts the element automatically. The tab and
+     panel are position: fixed inside the widget's own shadow root, so
+     one instance anywhere on the page is enough. --&gt;</pre>
+        <div class="widget-preview">
+          <sw-feedback></sw-feedback>
+        </div>
+      </section>
+    </div>
 
     <script src="../login-mfe/dist/login-widget.js"></script>
     <script src="../flight-search-mfe/dist/flight-search-widget.js"></script>
     <script src="../feedback-mfe/dist/feedback-widget.js"></script>
+    <script>
+      const tabs = document.querySelectorAll('.tab');
+      const panels = document.querySelectorAll('.panel');
+
+      tabs.forEach((tab) => {
+        tab.addEventListener('click', () => {
+          const name = tab.dataset.tab;
+          tabs.forEach((t) => {
+            t.classList.toggle('active', t === tab);
+            t.setAttribute('aria-selected', String(t === tab));
+          });
+          panels.forEach((panel) => {
+            panel.hidden = panel.dataset.panel !== name;
+          });
+        });
+      });
+
+      document.querySelectorAll('.embed-toggle').forEach((button) => {
+        button.addEventListener('click', () => {
+          const target = button.dataset.target;
+          const code = document.querySelector(`.embed-code[data-code="${target}"]`);
+          const nowHidden = !code.hidden;
+          code.hidden = nowHidden;
+          button.classList.toggle('active', !nowHidden);
+          button.textContent = nowHidden ? 'Show embed code' : 'Hide embed code';
+        });
+      });
+    </script>
   </body>
 </html>
