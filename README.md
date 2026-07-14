@@ -195,20 +195,31 @@ npm run preview   # serves dist/ — open /examples/embed-demo.html
 
 ## How it works
 
-- `src/Login.tsx` renders a yellow "Log in" trigger button. Clicking it
-  toggles a popover panel (account/username, password, remember me, plus
-  "First time logging in?", "Forgot login?", "Forgot password?", and
-  "Enroll Now" links) anchored below the button with a pointer arrow,
-  matching the southwest.com header.
-- The component owns its own open/close state: it closes on outside click
-  (via a `pointerdown` listener) or Escape, so the host page doesn't need
-  to manage visibility.
+- **Logged out**: "Log in to view points balance", a yellow "Log in"
+  trigger button, and a "Create account" link. Clicking "Log in" toggles a
+  popover panel (account/username, password, remember me, plus "First time
+  logging in?", "Forgot login?", "Forgot password?", and "Enroll Now"
+  links) anchored below the button with a pointer arrow, matching the
+  southwest.com header. The popover closes on outside click (via a
+  `pointerdown` listener checking `event.composedPath()`, since events
+  crossing the shadow boundary get `event.target` retargeted to the host
+  element) or Escape.
+- **Mock login**: there's no real Southwest auth API, so submitting the
+  form accepts *any* non-empty account number/username + password — no
+  validation against a backend. It generates a mock points balance and
+  stores `{ username, points }` in `sessionStorage` (persists across
+  reloads in the same tab/browser session, cleared when the
+  browser/tab closes or "Log out" is clicked — not `localStorage`, since
+  the ask was session-scoped, not permanent).
+- **Logged in**: replaces the trigger/popover with "Hi, {username}
+  {points} points  **My Account** | **Log out**", matching the
+  southwest.com header bar. "My Account" links to a best-effort
+  southwest.com URL; "Log out" clears the mock session and reverts to the
+  logged-out UI.
 - `src/webcomponent.tsx` wraps it in a `<sw-login>` custom element with an
   attached shadow root, same isolation approach as `<sw-flight-search>`.
-- On submit, it navigates to `https://www.southwest.com/login` (Southwest
-  has no public auth API, so — like flight search — this is a redirect, not
-  a live login). The "First time logging in?", "Forgot login?", "Forgot
-  password?", and "Enroll Now" links point at best-effort southwest.com
+- The "First time logging in?", "Forgot login?", "Forgot password?", and
+  "Enroll Now"/"Create account" links point at best-effort southwest.com
   URLs; double check these against the real site before shipping.
 
 ## Deploying the demo (e.g. Vercel)

@@ -13,8 +13,73 @@
 }
 
 .sw-login {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.sw-login__prompt {
+  font-style: italic;
+  font-size: 14px;
+  color: #304cb2;
+  white-space: nowrap;
+}
+
+.sw-login__create {
+  font-weight: 700;
+  font-size: 14px;
+  color: #304cb2;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.sw-login__create:hover {
+  text-decoration: underline;
+}
+
+.sw-login__trigger-wrap {
   position: relative;
   display: inline-block;
+}
+
+.sw-login--bar {
+  gap: 8px;
+  font-size: 14px;
+}
+
+.sw-login__greeting {
+  font-style: italic;
+  color: #304cb2;
+  white-space: nowrap;
+}
+
+.sw-login__points {
+  color: #304cb2;
+  white-space: nowrap;
+}
+
+.sw-login__link {
+  font-weight: 700;
+  color: #304cb2;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.sw-login__link:hover {
+  text-decoration: underline;
+}
+
+.sw-login__link--button {
+  background: none;
+  border: 0;
+  padding: 0;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+}
+
+.sw-login__sep {
+  color: #999;
 }
 
 .sw-login__trigger {

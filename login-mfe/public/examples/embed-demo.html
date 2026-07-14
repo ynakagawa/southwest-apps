@@ -38,9 +38,11 @@
       <p>
         This page loads <code>login-widget.js</code> exactly the way an EDS
         block would, then mounts the <code>&lt;sw-login&gt;</code> custom
-        element below. Click "Log in" to open the popover. Open the browser
-        console to see the redirect URL logged on submit instead of
-        navigating away.
+        element below. Click "Log in" and submit any account
+        number/username + any password — it's a mock login, so anything
+        works. The session persists in <code>sessionStorage</code>, so
+        reloading this page keeps you logged in until the tab/browser
+        closes, or you click "Log out".
       </p>
     </div>
 
