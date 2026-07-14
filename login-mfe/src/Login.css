@@ -1,0 +1,173 @@
+:host {
+  all: initial;
+  display: inline-block;
+  position: relative;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+}
+
+.sw-login,
+.sw-login *,
+.sw-login *::before,
+.sw-login *::after {
+  box-sizing: border-box;
+}
+
+.sw-login {
+  position: relative;
+  display: inline-block;
+}
+
+.sw-login__trigger {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 48px;
+  padding: 0 20px;
+  background: #ffbf27;
+  border: 0;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #1a1a1a;
+  cursor: pointer;
+}
+
+.sw-login__trigger:hover {
+  background: #f0af0f;
+}
+
+.sw-login__panel {
+  position: absolute;
+  top: calc(100% + 14px);
+  right: 0;
+  width: 400px;
+  max-width: calc(100vw - 32px);
+  background: #fff;
+  border: 1px solid #304cb2;
+  border-radius: 4px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  padding: 24px;
+  z-index: 1000;
+  color: #1a1a1a;
+}
+
+.sw-login__arrow {
+  position: absolute;
+  top: -9px;
+  right: 40px;
+  width: 16px;
+  height: 16px;
+  background: #fff;
+  border-left: 1px solid #304cb2;
+  border-top: 1px solid #304cb2;
+  transform: rotate(45deg);
+}
+
+.sw-login__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.sw-login__header h2 {
+  font-size: 28px;
+  margin: 0;
+  color: #1a1a1a;
+}
+
+.sw-login__header a {
+  color: #304cb2;
+  font-size: 14px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.sw-login__header a:hover {
+  text-decoration: underline;
+}
+
+.sw-login__field-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 16px 0 6px;
+}
+
+.sw-login__field-row label {
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.sw-login__field-row a {
+  color: #304cb2;
+  font-size: 13px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.sw-login__field-row a:hover {
+  text-decoration: underline;
+}
+
+.sw-login input[type='text'],
+.sw-login input:not([type='checkbox']) {
+  width: 100%;
+  height: 44px;
+  padding: 0 12px;
+  font-size: 16px;
+  border: 1px solid #999;
+  border-radius: 2px;
+  color: #1a1a1a;
+}
+
+.sw-login__checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  margin: 20px 0 0;
+}
+
+.sw-login__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.sw-login__enroll {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.sw-login__enroll a {
+  color: #304cb2;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.sw-login__enroll a:hover {
+  text-decoration: underline;
+}
+
+.sw-login__submit {
+  height: 52px;
+  padding: 0 32px;
+  background: #ffbf27;
+  border: 0;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #1a1a1a;
+  cursor: pointer;
+  flex: none;
+}
+
+.sw-login__submit:hover {
+  background: #f0af0f;
+}

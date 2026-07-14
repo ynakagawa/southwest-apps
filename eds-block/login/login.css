@@ -1,0 +1,8 @@
+/* Place at blocks/login/login.css in your EDS project.
+   The widget renders inside a shadow root, so this only needs to control
+   the block's own position in the page header (typically flush right). */
+
+.login {
+  display: flex;
+  justify-content: flex-end;
+}
