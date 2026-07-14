@@ -1,0 +1,8 @@
+/* Place at blocks/feedback/feedback.css in your EDS project.
+   The tab and panel are position: fixed inside the widget's own shadow
+   root, so this block itself doesn't need any layout styling — it can
+   take up zero visible space in the page flow. */
+
+.feedback {
+  display: contents;
+}

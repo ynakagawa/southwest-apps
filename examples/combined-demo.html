@@ -73,10 +73,11 @@
   </head>
   <body>
     <p class="note">
-      Combined demo — loads both <code>flight-search-widget.js</code> and
-      <code>login-widget.js</code> from their respective build outputs and
-      arranges them the way they'd sit on the real southwest.com page: the
-      login widget in the header, the flight search form below.
+      Combined demo — loads <code>flight-search-widget.js</code>,
+      <code>login-widget.js</code>, and <code>feedback-widget.js</code> from
+      their respective build outputs and arranges them the way they'd sit
+      on the real southwest.com page: the login widget in the header, the
+      flight search form below, and the feedback tab fixed to the left edge.
     </p>
 
     <header>
@@ -97,7 +98,10 @@
       <sw-flight-search></sw-flight-search>
     </main>
 
+    <sw-feedback></sw-feedback>
+
     <script src="../login-mfe/dist/login-widget.js"></script>
     <script src="../flight-search-mfe/dist/flight-search-widget.js"></script>
+    <script src="../feedback-mfe/dist/feedback-widget.js"></script>
   </body>
 </html>

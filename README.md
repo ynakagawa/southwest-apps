@@ -13,34 +13,40 @@ Component), so they can be dropped into an Adobe Edge Delivery Services
 - `login-mfe/` — the "Log in" button + popover. Builds to
   `dist/login-widget.js`, defining the `<sw-login>` custom element the same
   way.
+- `feedback-mfe/` — the feedback tab + panel. Builds to
+  `dist/feedback-widget.js`, defining the `<sw-feedback>` custom element
+  the same way.
 - `eds-block/` — example EDS blocks that load each built script and mount
   the corresponding element:
   - `flight-search.js` / `flight-search.css` → copy into `blocks/flight-search/`.
   - `login/login.js` / `login/login.css` → copy into `blocks/login/`.
+  - `feedback/feedback.js` / `feedback/feedback.css` → copy into `blocks/feedback/`.
 
-Both apps share the same shape: `npm install && npm run build` in the
+All three apps share the same shape: `npm install && npm run build` in the
 app's folder, `npm run dev` for local iteration, a `public/examples/embed-demo.html`
 that loads the built script the way an EDS block would, a `public/index.html`
 landing page for standalone deploys, and a `vercel.json` pinning the build
 config for Vercel.
 
-## Combined example (both MFEs together)
+## Combined example (all three MFEs together)
 
-`examples/combined-demo.html` loads both built bundles and arranges them
-like the real southwest.com page — `<sw-login>` in the header (flush
-right), `<sw-flight-search>` below — so you can see both MFEs working
-side by side on one page. Build both apps first, then serve the repo root:
+`examples/combined-demo.html` loads all three built bundles and arranges
+them like the real southwest.com page — `<sw-login>` in the header (flush
+right), `<sw-flight-search>` below, `<sw-feedback>` fixed to the left edge
+— so you can see all three MFEs working side by side on one page. Build
+all three apps first, then serve the repo root:
 
 ```bash
 (cd flight-search-mfe && npm install && npm run build)
 (cd login-mfe && npm install && npm run build)
+(cd feedback-mfe && npm install && npm run build)
 python3 -m http.server 8000   # from the repo root
 # open http://localhost:8000/examples/combined-demo.html
 ```
 
-This page references the two apps' `dist/` output by relative path, so
-it's a local sanity check, not something to deploy as-is — each MFE still
-gets its own build/deploy (see the Vercel sections below).
+This page references each app's `dist/` output by relative path, so it's a
+local sanity check, not something to deploy as-is — each MFE still gets
+its own build/deploy (see the Vercel sections below).
 
 ---
 
@@ -193,3 +199,79 @@ Authors add a block named "Login" in a Google Doc / Word doc; EDS turns
 that into a `<div class="login block">` and `decorate()` in `login.js`
 replaces its contents with the widget. `login.css` right-aligns the block,
 matching where "Log in" sits in the southwest.com header.
+
+---
+
+# Feedback MFE
+
+## Building the widget
+
+```bash
+cd feedback-mfe
+npm install
+npm run build
+```
+
+Upload the resulting `dist/feedback-widget.js` somewhere the EDS site can
+fetch it, then update `WIDGET_SCRIPT_URL` in `eds-block/feedback/feedback.js`
+to point at it.
+
+## Local dev
+
+```bash
+cd feedback-mfe
+npm install
+npm run dev
+```
+
+This serves `index.html`, which mounts `<sw-feedback>` directly. The tab is
+`position: fixed` to the left edge of the viewport, so scroll/resize the
+page to confirm it stays put.
+
+## Example / embed demo page
+
+`public/examples/embed-demo.html` loads the built `feedback-widget.js` the
+same way an EDS block would and mounts `<sw-feedback>` on a bare page.
+After `npm run build`, it's copied to `dist/examples/embed-demo.html`:
+
+```bash
+npm run build
+npm run preview   # serves dist/ — open /examples/embed-demo.html
+```
+
+## How it works
+
+- `src/Feedback.tsx` renders a vertical "Feedback" tab fixed to the left
+  edge of the viewport. Clicking it opens a dimmed backdrop and a panel
+  (Southwest header with a heart logo and close button, a goal dropdown,
+  a Yes/No "accomplished your goal?" radio group, a comments textarea with
+  a submission-policy link, a "Contact Us" link, and a "Send Feedback"
+  button), matching the southwest.com feedback widget.
+- `src/webcomponent.tsx` wraps it in a `<sw-feedback>` custom element with
+  an attached shadow root, same isolation approach as the other two
+  widgets. Because the tab and panel are `position: fixed` *inside* the
+  shadow root, one `<sw-feedback>` instance anywhere on the page positions
+  itself correctly regardless of where the EDS block sits in the page flow.
+- Unlike flight-search/login, there's no southwest.com URL a feedback
+  submission could sensibly redirect to — feedback text needs a real
+  endpoint. Submitting logs the form payload to the console and shows a
+  "Thanks for your feedback!" confirmation state; wire the optional
+  `onSubmit` prop (or replace the `console.log` in `Feedback.tsx`) up to a
+  real endpoint when you have one.
+
+## Deploying the demo (e.g. Vercel)
+
+Same pattern as the other two apps:
+
+- **Root Directory**: `feedback-mfe`
+- **Framework Preset**: Vite (or Other) — `feedback-mfe/vercel.json` pins
+  the build command/output dir and sets `"framework": null`.
+
+## Using it in an EDS document
+
+Authors add a block named "Feedback" in a Google Doc / Word doc; EDS turns
+that into a `<div class="feedback block">` and `decorate()` in
+`feedback.js` replaces its contents with the widget. Since the tab/panel
+are fixed-position inside the widget's own shadow root, `feedback.css` sets
+`display: contents` on the block — its placement in the page doesn't
+matter, and one instance anywhere is enough.

@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Feedback Widget — Embed Demo</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 40px 20px 40px 90px;
+        background: #f4f4f4;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+      }
+      .demo-header {
+        max-width: 640px;
+      }
+      .demo-header h1 {
+        font-size: 20px;
+        margin: 0 0 4px;
+      }
+      .demo-header p {
+        margin: 0;
+        color: #555;
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="demo-header">
+      <h1>Feedback Widget — Embed Demo</h1>
+      <p>
+        This page loads <code>feedback-widget.js</code> exactly the way an
+        EDS block would, then mounts the <code>&lt;sw-feedback&gt;</code>
+        custom element below. The "Feedback" tab is fixed to the left edge
+        of the viewport; click it to open the panel. Submitting logs the
+        form payload to the console instead of calling a real endpoint.
+      </p>
+    </div>
+
+    <sw-feedback></sw-feedback>
+
+    <!--
+      In production this script tag is added dynamically by the EDS block
+      (see eds-block/feedback/feedback.js). Here it's loaded directly since
+      this page lives next to the built bundle.
+    -->
+    <script src="../feedback-widget.js"></script>
+  </body>
+</html>
