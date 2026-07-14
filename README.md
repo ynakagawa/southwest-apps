@@ -68,10 +68,14 @@ npm run preview   # serves dist/ — open /examples/embed-demo.html
 The site is a plain static build, so any static host works. For Vercel,
 since the app lives in the `flight-search-mfe/` subfolder of this repo:
 
-- Root Directory: `flight-search-mfe`
-- Framework Preset: Vite
-- Build Command: `npm run build`
-- Output Directory: `dist`
+- **Root Directory** (Project Settings → General): `flight-search-mfe` —
+  required, since `vercel.json` and `package.json` live there, not at the
+  repo root.
+- **Framework Preset**: Vite (or Other). `flight-search-mfe/vercel.json`
+  pins `buildCommand`/`outputDirectory` and sets `"framework": null` so
+  Vercel won't auto-detect the wrong framework (e.g. Create React App,
+  which would try to run `react-scripts build` and fail — this project has
+  no CRA dependency at all).
 
 `public/index.html` becomes the deployed root (`/`) with a description and a
 link to `/examples/embed-demo.html`; `public/examples/embed-demo.html`
