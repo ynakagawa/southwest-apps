@@ -1,0 +1,14 @@
+/* Place at blocks/flight-search/flight-search.css in your EDS project.
+   The widget renders inside a shadow root, so this only needs to control
+   the block's own layout on the page (spacing, max width, centering). */
+
+.flight-search {
+  display: flex;
+  justify-content: center;
+  padding: 24px 0;
+}
+
+.flight-search sw-flight-search {
+  width: 100%;
+  max-width: 640px;
+}

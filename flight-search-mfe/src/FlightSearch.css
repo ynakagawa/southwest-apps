@@ -1,0 +1,135 @@
+:host {
+  all: initial;
+  display: block;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+}
+
+.sw-fs {
+  box-sizing: border-box;
+  max-width: 640px;
+  padding: 24px;
+  background: #fff;
+  border-top: 4px solid #304cb2;
+  color: #1a1a1a;
+}
+
+.sw-fs *,
+.sw-fs *::before,
+.sw-fs *::after {
+  box-sizing: border-box;
+}
+
+.sw-fs__required {
+  font-size: 13px;
+  color: #444;
+  margin: 0 0 16px;
+}
+
+.sw-fs__row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.sw-fs__row--airports {
+  align-items: flex-end;
+}
+
+.sw-fs__field {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sw-fs__field label {
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.sw-fs__field input,
+.sw-fs__field select {
+  height: 44px;
+  padding: 0 12px;
+  font-size: 16px;
+  border: 1px solid #999;
+  border-radius: 2px;
+  color: #304cb2;
+  background: #fff;
+}
+
+.sw-fs__date-hint {
+  font-size: 13px;
+  color: #444;
+}
+
+.sw-fs__swap {
+  height: 44px;
+  width: 44px;
+  flex: none;
+  border-radius: 50%;
+  border: 2px solid #304cb2;
+  background: #fff;
+  color: #304cb2;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.sw-fs__swap:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.sw-fs__row--promo {
+  align-items: flex-start;
+}
+
+.sw-fs__fares {
+  flex: 1;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sw-fs__fares legend {
+  font-weight: 700;
+  font-size: 14px;
+  padding: 0;
+  margin-bottom: 6px;
+}
+
+.sw-fs__radio {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+}
+
+.sw-fs__checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  justify-content: center;
+  margin: 8px 0 20px;
+}
+
+.sw-fs__submit {
+  display: block;
+  width: 100%;
+  height: 56px;
+  background: #ffbf27;
+  border: 0;
+  border-radius: 4px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #1a1a1a;
+  cursor: pointer;
+}
+
+.sw-fs__submit:hover {
+  background: #f0af0f;
+}
