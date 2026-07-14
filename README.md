@@ -9,13 +9,9 @@ site as a micro-frontend with no build-time coupling to the host page.
 - `flight-search-mfe/` — the React app. Builds to `dist/flight-search-widget.js`,
   a self-contained IIFE that defines the `<sw-flight-search>` custom element
   (React, ReactDOM, and CSS are all bundled in).
-- `eds-block/` — example EDS blocks:
-  - `flight-search.js` / `flight-search.css` — loads the built
-    `flight-search-widget.js` script and mounts the `<sw-flight-search>`
-    element. Copy into your EDS project at `blocks/flight-search/`.
-  - `ribbon/ribbon.js` / `ribbon/ribbon.css` — a plain (non-React) block for
-    a promo banner beneath the site header, e.g. "Earn 50,000 points + first
-    checked bag is free. Learn more". Copy into `blocks/ribbon/`.
+- `eds-block/` — an example EDS block (`flight-search.js` / `flight-search.css`)
+  that loads the built script and mounts the element. Copy these into your
+  EDS project at `blocks/flight-search/`.
 
 ## Building the widget
 
@@ -92,16 +88,3 @@ Authors add a block named "Flight Search" (any single cell of content, e.g.
 just the text "Flight Search") in a Google Doc / Word doc; EDS turns that
 into a `<div class="flight-search block">` and `decorate()` in
 `flight-search.js` replaces its contents with the widget.
-
-## Ribbon block
-
-Unlike flight-search, the ribbon banner is static content (an icon, a
-message, a link) with no interactivity, so it's a plain EDS block — no
-React/Vite build needed.
-
-Authors add a "Ribbon" block with one row of two cells: an image (e.g. a
-credit card icon), and rich text containing the message with a link, e.g.
-"Earn 50,000 points + first checked bag is free. \[Learn more\](https://...)".
-`ribbon.js` moves that content into a `.ribbon-inner` wrapper for styling;
-`ribbon.css` lays it out as a centered, full-width bar meant to sit directly
-beneath the page header.
