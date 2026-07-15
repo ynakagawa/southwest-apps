@@ -1,4 +1,6 @@
-import { FormEvent, useMemo, useState } from 'react';
+import { FormEvent, useEffect, useMemo, useState } from 'react';
+import { findNearestAirport } from './airports';
+import { fetchGeoLocation } from './geo';
 
 type TripType = 'roundtrip' | 'oneway' | 'multicity';
 type FareDisplay = 'dollars' | 'points' | 'both';
@@ -58,6 +60,24 @@ export interface FlightSearchProps {
 
 export default function FlightSearch({ onSearch }: FlightSearchProps) {
   const [form, setForm] = useState<FormState>(initialState);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    (async () => {
+      const coords = await fetchGeoLocation();
+      if (cancelled || !coords) return;
+
+      const nearest = findNearestAirport(coords.lat, coords.lon);
+      // Only apply the geo default if the user hasn't already changed
+      // (or swapped away from) the original default in the meantime.
+      setForm((prev) => (prev.origin === initialState.origin ? { ...prev, origin: nearest.code } : prev));
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const swapDisabled = form.tripType === 'multicity';
 

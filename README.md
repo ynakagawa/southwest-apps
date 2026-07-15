@@ -128,6 +128,32 @@ npm run preview   # serves dist/ — open /examples/embed-demo.html
   search — double check the query params against southwest.com if exact
   parity matters.
 
+## Geo-targeting the default "Depart" airport
+
+On mount, the widget calls [ipgeolocation.io](https://ipgeolocation.io)'s
+`ipgeo` endpoint to resolve the visitor's approximate lat/lon, then picks
+the closest airport from `src/airports.ts` (haversine distance against a
+sample of Southwest destinations — not an authoritative/current route
+map) and defaults the "Depart" field to it, unless the user has already
+changed that field.
+
+- Requires `VITE_GEO_IP_API_KEY` in `flight-search-mfe/.env.local` (not
+  committed — see the repo's `.gitignore`). Without a key, or on any
+  network/API failure, `fetchGeoLocation()` in `src/geo.ts` resolves to
+  `null` and the widget silently keeps its static `OAK` default — geo
+  failures never surface an error to the user.
+- **The key gets baked into the built `flight-search-widget.js` bundle**
+  (whatever `.env.local` was present at `npm run build` time) and is
+  visible to anyone who reads the JS source, same as any client-side
+  geo-IP integration — there's no way to keep a purely client-side API key
+  secret. If that's not acceptable, this would need to move to an
+  edge/server-side geo lookup instead (see the geo-targeting options
+  discussion — reading a server-injected geo signal at the EDS block
+  level rather than calling a third-party API from the browser).
+- The key currently in `.env.local` returned `401 Provided API key is not
+  valid` when tested directly against ipgeolocation.io — worth checking
+  whether it's the right service/key before relying on this in a demo.
+
 ## Deploying the demo (e.g. Vercel)
 
 The site is a plain static build, so any static host works. For Vercel,
